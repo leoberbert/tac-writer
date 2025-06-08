@@ -1,7 +1,9 @@
 Tac Writer
 Tac Writer é um aplicativo para Linux desenvolvido em Python e GTK 3 que facilita a escrita de textos acadêmicos utilizando a Técnica da Argumentação Continuada (TAC), criada por Narayan Silva. O aplicativo oferece uma interface intuitiva para organizar parágrafos acadêmicos de acordo com a metodologia TAC, com recursos de formatação e exportação.
 
-https://imgur.com/a/6kiAHgQ
+![image](https://github.com/user-attachments/assets/66e2598c-6a3c-4526-93de-fa397868375a)
+
+
 
 Recursos Principais
 🧩 Estrutura baseada na Técnica TAC:
@@ -28,7 +30,7 @@ Acesso rápido aos trabalhos anteriores
 
 📤 Exportação flexível:
 
-Formato ODT (LibreOffice)
+Formato ODT (LibreOffice e outras suítes office)
 
 🌍 Suporte a internacionalização:
 

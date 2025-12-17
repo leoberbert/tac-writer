@@ -7,6 +7,8 @@ import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
+import re
+
 from gi.repository import Gtk, Adw, GObject, Gdk, GLib, Pango, Graphene
 from datetime import datetime
 
@@ -1022,7 +1024,7 @@ class ParagraphEditor(Gtk.Box):
         # Setup drag and drop
         self._setup_drag_and_drop()
         
-        # --- ALTERAÇÃO: Usar 'map' em vez de 'realize' ---
+        # Use 'map' instead of 'realize'
         self.connect('map', self._on_map)
 
     def _on_map(self, widget):
@@ -1049,10 +1051,10 @@ class ParagraphEditor(Gtk.Box):
 
             self._apply_formatting()
             
-            # --- DEBUG: Confirmação visual no terminal ---
+            # --- DEBUG: Visual confirmation in terminal ---
             print(f"DEBUG: ParagraphEditor {self.paragraph.id[:8]} MAPPED", flush=True)
             
-            # --- NOVO: Inicia o spell check aqui ---
+            # --- Spellcheck init ---
             GLib.timeout_add(200, self._setup_spell_check)
         
         except Exception as e:
@@ -1146,6 +1148,34 @@ class ParagraphEditor(Gtk.Box):
             # Initialize badge as None for other types
             self.footnote_badge = None
 
+        # --- Formatting Buttons (Bold, Italic, Underline) ---
+        format_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+        format_box.add_css_class("linked")
+        
+        # Bold
+        btn_bold = Gtk.Button(icon_name='format-text-bold-symbolic')
+        btn_bold.set_tooltip_text(_("Bold"))
+        btn_bold.add_css_class("flat")
+        btn_bold.connect('clicked', lambda b: self._on_format_clicked(b, 'bold'))
+        format_box.append(btn_bold)
+        
+        # Italic
+        btn_italic = Gtk.Button(icon_name='format-text-italic-symbolic')
+        btn_italic.set_tooltip_text(_("Italic"))
+        btn_italic.add_css_class("flat")
+        btn_italic.connect('clicked', lambda b: self._on_format_clicked(b, 'italic'))
+        format_box.append(btn_italic)
+        
+        # Underline
+        btn_underline = Gtk.Button(icon_name='format-text-underline-symbolic')
+        btn_underline.set_tooltip_text(_("Underline"))
+        btn_underline.add_css_class("flat")
+        btn_underline.connect('clicked', lambda b: self._on_format_clicked(b, 'underline'))
+        format_box.append(btn_underline)
+        
+        header_box.append(format_box)
+        # ----------------------------------------------------
+
         # Spell check toggle button
         if SPELL_CHECK_AVAILABLE and self.config:
             self.spell_button = Gtk.ToggleButton()
@@ -1173,6 +1203,38 @@ class ParagraphEditor(Gtk.Box):
 
         self.append(header_box)
 
+    def _on_format_clicked(self, button, tag_name):
+        """Handle formatting button clicks"""
+        bounds = self.text_buffer.get_selection_bounds()
+        if not bounds:
+            # Show popover warning
+            popover = Gtk.Popover()
+            label = Gtk.Label(label=_("Please select a word or section to format first."))
+            label.set_margin_start(10)
+            label.set_margin_end(10)
+            label.set_margin_top(10)
+            label.set_margin_bottom(10)
+            popover.set_child(label)
+            popover.set_parent(button)
+            popover.popup()
+            return
+        
+        start, end = bounds
+        
+        # Check if tag is present at the start of selection to toggle
+        tag = self.text_buffer.get_tag_table().lookup(tag_name)
+        if not tag:
+            return
+
+        # Simple toggle logic: if start has tag, remove from whole selection. Else apply.
+        if start.has_tag(tag):
+            self.text_buffer.remove_tag_by_name(tag_name, start, end)
+        else:
+            self.text_buffer.apply_tag_by_name(tag_name, start, end)
+
+        # Forces update for saving tags <b>, <i>, etc.
+        self._on_text_changed(self.text_buffer)
+
     def _on_spell_check_toggled(self, button):
         """Handle spell check toggle"""
         if not self.spell_helper or not self.text_view:
@@ -1195,7 +1257,23 @@ class ParagraphEditor(Gtk.Box):
         """Create the text editing area"""
         # Text buffer
         self.text_buffer = Gtk.TextBuffer()
-        self.text_buffer.set_text(self.paragraph.content)
+        #self.text_buffer.set_text(self.paragraph.content)
+        #self.text_buffer.connect('changed', self._on_text_changed)
+
+        # --- Define Formatting Tags ---
+        tag_table = self.text_buffer.get_tag_table()
+        if not tag_table.lookup('bold'):
+            self.text_buffer.create_tag('bold', weight=Pango.Weight.BOLD)
+        if not tag_table.lookup('italic'):
+            self.text_buffer.create_tag('italic', style=Pango.Style.ITALIC)
+        if not tag_table.lookup('underline'):
+            self.text_buffer.create_tag('underline', underline=Pango.Underline.SINGLE)
+        # ------------------------------
+
+        # Use new method for formatting text
+        self._set_content_from_storage(self.paragraph.content)
+
+        # Connect signal AFTER loading text
         self.text_buffer.connect('changed', self._on_text_changed)
 
         # Text view
@@ -1218,8 +1296,99 @@ class ParagraphEditor(Gtk.Box):
 
         self.append(scrolled)
 
-        # Usar GLib.idle_add garante que será chamado DEPOIS de toda a inicialização
-        # GLib.idle_add(self._setup_spell_check)
+    # NEW DEFS FOR FORMATTING PERSISTENCE
+    def _get_content_for_storage(self) -> str:
+        """
+        Serializes the buffer content into a string with HTML-like tags 
+        (<b>, <i>, <u>) for storage.
+        """
+        if not self.text_buffer:
+            return ""
+
+        start_iter = self.text_buffer.get_start_iter()
+        end_iter = self.text_buffer.get_end_iter()
+        
+        if start_iter.equal(end_iter):
+            return ""
+
+        output = []
+        current_iter = start_iter
+        
+        while not current_iter.is_end():
+            # Encontrar o próximo ponto onde as tags mudam ou o fim do texto
+            next_iter = current_iter.copy()
+            if not next_iter.forward_to_tag_toggle(None):
+                next_iter = end_iter
+
+            # Pegar o texto desse segmento
+            text_segment = self.text_buffer.get_text(current_iter, next_iter, False)
+            
+            # Verificar quais tags estão ativas no início deste segmento
+            tags = current_iter.get_tags()
+            tag_names = [t.get_property('name') for t in tags]
+            
+            # Aplicar tags de abertura
+            if 'bold' in tag_names: output.append('<b>')
+            if 'italic' in tag_names: output.append('<i>')
+            if 'underline' in tag_names: output.append('<u>')
+            
+            output.append(text_segment)
+            
+            # Aplicar tags de fechamento (na ordem inversa)
+            if 'underline' in tag_names: output.append('</u>')
+            if 'italic' in tag_names: output.append('</i>')
+            if 'bold' in tag_names: output.append('</b>')
+            
+            current_iter = next_iter
+
+        return "".join(output)
+
+    def _set_content_from_storage(self, html_content: str):
+        """
+        Parses the stored string with tags and applies them to the buffer.
+        """
+        if not self.text_buffer:
+            return
+
+        # Limpar buffer atual
+        self.text_buffer.set_text("")
+        
+        if not html_content:
+            return
+
+        # Regex para separar tags do texto
+        # Captura <b>, </b>, <i>, </i>, <u>, </u>
+        parts = re.split(r'(</?[biu]>)', html_content)
+        
+        active_tags = set()
+        
+        for part in parts:
+            if not part:
+                continue
+                
+            if part == '<b>':
+                active_tags.add('bold')
+            elif part == '</b>':
+                active_tags.discard('bold')
+            elif part == '<i>':
+                active_tags.add('italic')
+            elif part == '</i>':
+                active_tags.discard('italic')
+            elif part == '<u>':
+                active_tags.add('underline')
+            elif part == '</u>':
+                active_tags.discard('underline')
+            else:
+                # É texto
+                # IMPORTANTE: Obter um novo iterador para o final a cada inserção
+                # para garantir que ele seja válido e aponte para o lugar certo.
+                iter_loc = self.text_buffer.get_end_iter()
+                
+                if active_tags:
+                    # Método nativo do GTK: insere e aplica tags de uma vez
+                    self.text_buffer.insert_with_tags_by_name(iter_loc, part, *list(active_tags))
+                else:
+                    self.text_buffer.insert(iter_loc, part)
 
     def _setup_drag_and_drop(self):
         """Setup drag and drop functionality for reordering paragraphs"""
@@ -1345,6 +1514,9 @@ class ParagraphEditor(Gtk.Box):
 
     def _update_word_count(self):
         """Update word count display"""
+         # Check if label already exist before use it
+        if not hasattr(self, 'word_count_label') or self.word_count_label is None:
+            return
         word_count = TextHelper.count_words(self.paragraph.content)
         self.word_count_label.set_text(_("{count} words").format(count=word_count))
 
@@ -1466,8 +1638,15 @@ class TextEditor(Gtk.Box):
 
     def _on_text_changed(self, buffer):
         """Handle text buffer changes"""
-        text = self.get_text()
-        self.emit('content-changed', text)
+        # Using new serialization method
+        formatted_text = self._get_content_for_storage()
+
+        self.paragraph.update_content(formatted_text)
+        self._update_word_count()
+        self.emit('content-changed')
+        
+        #text = self.get_text()
+        #self.emit('content-changed', text)
 
     def get_text(self) -> str:
         """Get current text content"""

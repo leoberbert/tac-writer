@@ -87,23 +87,10 @@ The Continuous Argumentation Technique emphasizes interconnected paragraphs that
 - **Storage**: 1GB+ for project storage and backups
 
 ## Installation
+### 🔍 Escolha Seu Pacote:
 
-
-
-2. **Create Your First Project**
-   - Click "Start" on the Academic Essay template
-   - Enter your project name and details
-   - Begin writing with guided paragraph types
-
-3. **Structure Your Document**
-   - Add different paragraph types using the toolbar
-   - Use drag-and-drop to reorder paragraphs
-   - Apply consistent formatting across your document
-
-4. **Export and Share**
-   - Use Ctrl+E to open export dialog
-   - Choose your preferred format (ODT, PDF, TXT, HTML)
-   - Configure export settings and metadata
+- **Arch Linux users**: Download the `.pkg.tar.zst` file, open the terminal in the folder and install with `sudo pacman -U package-name.pkg.tar.zst` (Tac Writer will be added to your menu/launcher, you can open it from there)
+- **Debian/Ubuntu and derivative users**: Download the `.deb` file and install it with `sudo dpkg -i package-name.deb` or double-click it in your distribution's package manager (Tac Writer will be added to your menu/launcher, you can open it from there).
 
 ### AI Assistant
 
@@ -156,28 +143,6 @@ TAC Writer follows XDG Base Directory specification:
 - **Export Settings**: Configure default export formats
 - **Shortcuts**: Customize keyboard shortcuts
 
-## Architecture
-
-```
-tac/
-├── main.py              # Application entry point
-├── application.py       # Main application controller
-├── requirements.txt     # Python dependencies
-├── core/               # Core business logic
-│   ├── models.py       # Data models (Project, Paragraph)
-│   ├── services.py     # Business services (ProjectManager, ExportService)
-│   └── config.py       # Configuration management
-├── ui/                 # User interface components
-│   ├── main_window.py  # Primary application window
-│   ├── components.py   # Reusable UI components
-│   └── dialogs.py      # Dialog windows and forms
-├── utils/              # Utility functions
-│   ├── helpers.py      # Text processing, validation
-│   └── i18n.py         # Internationalization support
-└── data/               # Application data
-    ├── templates/      # Document templates
-    └── icons/          # Application icons
-```
 
 ## Development
 
@@ -231,20 +196,6 @@ When reporting bugs, please include:
 ## License
 
 This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](LICENSE) file for details.
-
-## Citation
-
-If you use TAC Writer in academic work, please cite:
-
-```bibtex
-@software{tac_writer,
-  title = {TAC Writer: Academic Writing Assistant for Continuous Argumentation Technique},
-  author = {BigCommunity Development Team},
-  year = {2024},
-  url = {https://github.com/big-comm/comm-tac-writer},
-  version = {1.1.0}
-}
-```
 
 ---
 

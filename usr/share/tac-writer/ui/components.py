@@ -1522,11 +1522,10 @@ class ParagraphEditor(Gtk.Box):
 
     def _on_text_changed(self, buffer):
         """Handle text changes"""
-        start_iter = buffer.get_start_iter()
-        end_iter = buffer.get_end_iter()
-        text = buffer.get_text(start_iter, end_iter, False)
+        # Use method that capture formatting tags
+        formatted_text = self._get_content_for_storage()
 
-        self.paragraph.update_content(text)
+        self.paragraph.update_content(formatted_text)
         self._update_word_count()
         self.emit('content-changed')
 

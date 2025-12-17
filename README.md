@@ -144,7 +144,6 @@ TAC Writer follows XDG Base Directory specification:
 - **Shortcuts**: Customize keyboard shortcuts
 
 
-```
 
 ## How to Contribute
 ### Areas for Contribution

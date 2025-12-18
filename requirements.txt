@@ -1,8 +1,0 @@
-PyGObject
-PyCairo
-Pillow
-reportlab
-pygtkspellcheck
-pyenchant
-requests
-pypdf

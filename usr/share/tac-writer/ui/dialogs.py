@@ -1013,7 +1013,7 @@ class WelcomeDialog(Adw.Window):
         title_box.set_halign(Gtk.Align.CENTER)
 
         # App icon
-        icon = Gtk.Image.new_from_icon_name('tac-document-tac-edit-symbolic')
+        icon = Gtk.Image.new_from_icon_name('tac-writer')
         icon.set_pixel_size(56)
         icon.add_css_class("accent")
         title_box.append(icon)

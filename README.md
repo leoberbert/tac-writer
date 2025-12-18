@@ -91,6 +91,7 @@ The Continuous Argumentation Technique emphasizes interconnected paragraphs that
 
 - **Arch Linux users**: Download the `.pkg.tar.zst` file, open the terminal in the folder and install with `sudo pacman -U package-name.pkg.tar.zst` (Tac Writer will be added to your menu/launcher, you can open it from there)
 - **Debian/Ubuntu and derivative users**: Download the `.deb` file and install it with `sudo dpkg -i package-name.deb` or double-click it in your distribution's package manager (Tac Writer will be added to your menu/launcher, you can open it from there).
+- **Fedora and derivative user**: Download the `.rpm`, open the terminal in the folder and install with `sudo dnf install package-name.rpm` (Tac Writer will be added to your menu/launcher, you can open it from there)
 
 ### AI Assistant
 

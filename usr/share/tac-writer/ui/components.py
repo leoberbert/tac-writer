@@ -1055,7 +1055,7 @@ class ParagraphEditor(Gtk.Box):
             print(f"DEBUG: ParagraphEditor {self.paragraph.id[:8]} MAPPED", flush=True)
             
             # --- Spellcheck init ---
-            GLib.timeout_add(200, self._setup_spell_check)
+            #GLib.timeout_add(200, self._setup_spell_check)
         
         except Exception as e:
             print(f"Error during paragraph editor initialization: {e}", flush=True)
@@ -1283,6 +1283,10 @@ class ParagraphEditor(Gtk.Box):
     def _on_focus_enter(self, controller):
         """Called when text view gains focus"""
         self._ensure_formatting_buttons()
+
+        # Active spellcheck only when focus
+        if not self._spell_check_setup:
+            GLib.idle_add(self._setup_spell_check)
 
     def _ensure_formatting_buttons(self):
         """Create formatting buttons only when needed"""

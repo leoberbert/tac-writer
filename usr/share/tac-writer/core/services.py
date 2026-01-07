@@ -1998,7 +1998,7 @@ class ExportService:
             doc = Document(geometry_options=geometry_options)
 
             # Add essential packages
-            doc.packages.append(Package('babel', options=['brazil'])) # Idioma
+            doc.packages.append(Package('babel', options=['brazilian'])) 
             doc.packages.append(Package('inputenc', options=['utf8']))
             doc.packages.append(Package('fontenc', options=['T1']))
             doc.packages.append(Package('graphicx')) # Imagens

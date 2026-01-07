@@ -21,6 +21,7 @@ depends=(
     'hunspell-en_us'
     'hunspell-es_any'
     'python-pylatex'
+    'texlive-langportuguese'
 )
 makedepends=('gettext')
 optdepends=(

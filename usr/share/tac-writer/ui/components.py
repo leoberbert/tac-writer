@@ -1049,8 +1049,32 @@ class ParagraphEditor(Gtk.Box):
         """Called when widget is mapped to screen (visible)"""
         try:
             formatting = self.paragraph.formatting
-            font_family = formatting.get('font_family', 'Adwaita Sans')
-            font_size = formatting.get('font_size', 12)
+            
+            # Logic for LaTeX
+            if self.paragraph.type == ParagraphType.LATEX:
+                font_family = 'Monospace'
+                font_size = formatting.get('font_size', 11)
+                
+                # Add specific visual style
+                css_provider = Gtk.CssProvider()
+                css = """
+                .latex-view {
+                    font-family: 'Monospace';
+                    background-color: alpha(@theme_fg_color, 0.05);
+                    border-radius: 4px;
+                    padding: 6px;
+                }
+                """
+                css_provider.load_from_data(css.encode())
+                self.text_view.get_style_context().add_provider(
+                    css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                )
+                self.text_view.add_css_class("latex-view")
+                
+            else:
+                # Default type
+                font_family = formatting.get('font_family', 'Adwaita Sans')
+                font_size = formatting.get('font_size', 12)
 
             # Use CSS cache instead of creating individual provider
             css_cache = get_cached_css_provider(font_family, font_size)
@@ -1069,12 +1093,9 @@ class ParagraphEditor(Gtk.Box):
 
             self._apply_formatting()
             
-            # --- DEBUG: Visual confirmation in terminal ---
-            print(f"DEBUG: ParagraphEditor {self.paragraph.id[:8]} MAPPED", flush=True)
+            # DEBUG: Visual confirmation in terminal ---
+            print(f"DEBUG: ParagraphEditor {self.paragraph.id[:8]} MAPPED (Type: {self.paragraph.type})", flush=True)
             
-            # --- Spellcheck init ---
-            #GLib.timeout_add(200, self._setup_spell_check)
-        
         except Exception as e:
             print(f"Error during paragraph editor initialization: {e}", flush=True)
 
@@ -1186,7 +1207,7 @@ class ParagraphEditor(Gtk.Box):
         header_box.append(self.format_box)
 
         # Spell check toggle button
-        if SPELL_CHECK_AVAILABLE and self.config:
+        if SPELL_CHECK_AVAILABLE and self.config and self.paragraph.type != ParagraphType.LATEX:
             self.spell_button = Gtk.ToggleButton()
             self.spell_button.set_icon_name('tac-tools-check-spelling-symbolic')
             self.spell_button.set_tooltip_text(_("Alternar verificação ortográfica"))
@@ -1319,6 +1340,10 @@ class ParagraphEditor(Gtk.Box):
     def _ensure_formatting_buttons(self):
         """Create formatting buttons only when needed"""
         if self._formatting_buttons_created:
+            return
+
+        # If LaTeX, do not create text formatting buttons
+        if self.paragraph.type == ParagraphType.LATEX:
             return
 
         # Bold
@@ -1566,7 +1591,8 @@ class ParagraphEditor(Gtk.Box):
             ParagraphType.ARGUMENT_RESUMPTION: _("Retomada do Argumento"),
             ParagraphType.QUOTE: _("Citação"),
             ParagraphType.EPIGRAPH: _("Epígrafe"),
-            ParagraphType.CONCLUSION: _("Conclusão")
+            ParagraphType.CONCLUSION: _("Conclusão"),
+            ParagraphType.LATEX: _("Equação LaTeX")
         }
         return type_labels.get(self.paragraph.type, _("Parágrafo"))
 

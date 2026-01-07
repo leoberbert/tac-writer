@@ -420,6 +420,12 @@ class MainWindow(Adw.ApplicationWindow):
             (_("Conclusão"), ParagraphType.CONCLUSION),
         ]
 
+        # Add LaTex condition
+        if self.current_project and self.current_project.metadata.get('type') == 'latex':
+            paragraph_types.append((_("Equação LaTeX"), ParagraphType.LATEX))
+            
+
+
         for label, ptype in paragraph_types:
             menu_model.append(label, f"win.add_paragraph('{ptype.value}')")
 

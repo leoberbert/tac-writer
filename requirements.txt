@@ -1,0 +1,7 @@
+reportlab
+pygtkspellcheck
+pyenchant
+Pillow
+requests
+pypdf
+pylatex

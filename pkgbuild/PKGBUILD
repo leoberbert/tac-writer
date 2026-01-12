@@ -20,7 +20,7 @@ depends=(
     'hunspell-pt-br'
     'hunspell-en_us'
     'hunspell-es_any'
-    'python-pylatex'
+    'python-pylatex-git'
     'texlive-langportuguese'
 )
 makedepends=('gettext')

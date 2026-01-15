@@ -165,7 +165,7 @@ class TacApplication(Adw.Application):
     
     def __init__(self):
         super().__init__(
-            application_id='tac-writer',
+            application_id='io.github.narayanls.tacwriter',
             flags=Gio.ApplicationFlags.DEFAULT_FLAGS
         )
         GLib.set_prgname('tac-writer')

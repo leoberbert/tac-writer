@@ -15,6 +15,10 @@ from pathlib import Path
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+# Fix for AppImage (dead keys)
+if os.environ.get('APPIMAGE'):
+    os.environ['GTK_IM_MODULE'] = 'gtk-im-context-simple'
+
 # Fix for KDE Plasma (dead keys)
 if os.environ.get('XDG_CURRENT_DESKTOP') == 'KDE':
     os.environ.setdefault('GTK_IM_MODULE', 'xim')

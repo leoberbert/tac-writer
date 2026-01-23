@@ -85,7 +85,7 @@ The Continuous Argumentation Technique emphasizes interconnected paragraphs that
 
 ### Minimum Requirements
 - **OS**: Any Linux Os
-- **Python**: 3.9+
+- **Python**: 3.12+
 - **GTK**: 3.0+
 - **libadwaita**: 1.0+
 - **Memory**: 2GB RAM

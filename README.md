@@ -1,192 +1,183 @@
 # TAC Writer
 
 <p align="center">
-  <img src="https://github.com/big-comm/comm-tac-writer/blob/main/usr/share/icons/hicolor/scalable/apps/tac-writer.svg" alt="TAC Writer Logo" width="128" height="128">
+  <img src="https://github.com/big-comm/comm-tac-writer/blob/main/usr/share/icons/hicolor/scalable/apps/tac-writer.svg" alt="Logo do TAC Writer" width="128" height="128">
 </p>
 
 <p align="center">
-  <strong>Academic Writing Assistant for Continuous Argumentation Technique</strong>
+  <strong>Assistente de Escrita Acadêmica para a Técnica de Argumentação Contínua</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/big-comm/comm-tac-writer/releases"><img src="https://img.shields.io/badge/Version-1.2.6-blue.svg" alt="Version"/></a>
-  <a href="https://github.com/big-comm/comm-tac-writer/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-green.svg" alt="License"/></a>
-  <a href="https://www.gtk.org/"><img src="https://img.shields.io/badge/GTK-4.0+-orange.svg" alt="GTK Version"/></a>
-  <a href="https://gnome.pages.gitlab.gnome.org/libadwaita/"><img src="https://img.shields.io/badge/libadwaita-1.0+-purple.svg" alt="libadwaita Version"/></a>
+  <a href="https://github.com/big-comm/comm-tac-writer/releases"><img src="https://img.shields.io/badge/Version-1.2.6-blue.svg" alt="Versão"/></a>
+  <a href="https://github.com/big-comm/comm-tac-writer/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-green.svg" alt="Licença"/></a>
+  <a href="https://www.gtk.org/"><img src="https://img.shields.io/badge/GTK-4.0+-orange.svg" alt="Versão GTK"/></a>
+  <a href="https://gnome.pages.gitlab.gnome.org/libadwaita/"><img src="https://img.shields.io/badge/libadwaita-1.0+-purple.svg" alt="Versão libadwaita"/></a>
 </p>
 
 ---
-## Metrics
+## Métricas
 ![Downloads](https://img.shields.io/github/downloads/narayanls/tac-writer/total?style=flat-square)
-![GitHub Release](https://img.shields.io/github/v/release/narayanls/tac-writer?include_releases&style=flat-square)
-![GitHub Issues](https://img.shields.io/github/issues/narayanls/tac-writer?style=flat-square)
-![GitHub Stars](https://img.shields.io/github/stars/narayanls/tac-writer?style=flat-square)
-![GitHub Forks](https://img.shields.io/github/forks/narayanls/tac-writer?style=flat-square)
+![Lançamento GitHub](https://img.shields.io/github/v/release/narayanls/tac-writer?include_releases&style=flat-square)
+![Problemas GitHub](https://img.shields.io/github/issues/narayanls/tac-writer?style=flat-square)
+![Estrelas GitHub](https://img.shields.io/github/stars/narayanls/tac-writer?style=flat-square)
+![Forks GitHub](https://img.shields.io/github/forks/narayanls/tac-writer?style=flat-square)
 
 ---
-## Overview
+## Visão Geral
 
-**TAC Writer** is a modern academic writing assistant designed to help students and researchers create structured academic texts using the **Continuous Argumentation Technique (TAC in portuguese)**. Built with GTK4 and libadwaita, TAC provides an intuitive interface for organizing thoughts, managing document structure, and producing high-quality academic content.
+O **TAC Writer** é um assistente de escrita acadêmica moderno projetado para ajudar estudantes e pesquisadores a criar textos acadêmicos estruturados usando a **Técnica de Argumentação Contínua (TAC)**. Construído com GTK4 e libadwaita, o TAC oferece uma interface intuitiva para organizar pensamentos, gerenciar a estrutura do documento e produzir conteúdo acadêmico de alta qualidade.
 
-The Continuous Argumentation Technique emphasizes interconnected paragraphs that build upon each other, making complex topics easier to understand and arguments more compelling.
+A Técnica de Argumentação Contínua enfatiza parágrafos interconectados que se baseiam uns nos outros, tornando tópicos complexos mais fáceis de entender e argumentos mais convincentes.
 
-## Screenshots
+## Capturas de Tela
 
-*Main editing interface with paragraph structure*
+*Interface principal de edição com estrutura de parágrafos*
 <img width="1106" height="592" alt="tac-main-dark" src="https://github.com/user-attachments/assets/d40c6afa-eeb3-4ccf-893c-38a0b9e6534c" />
 
 <img width="1106" height="592" alt="tac-main-light" src="https://github.com/user-attachments/assets/dee5ddfb-a2fa-4b4b-82e8-858160f18bb7" />
 
 ----------------------
 
-*Welcome Tac Writer*
+*Tela de boas-vindas do Tac Writer*
 
 <img width="550" height="450" alt="tac-welcome" src="https://github.com/user-attachments/assets/de3520bf-30bd-4ad6-b520-01926652b44b" />
 
 
 
-## Key Features
+## Principais Recursos
 
-### 📝 **Structured Writing**
-- **Guided Dialog Boxes Types for a better Paragraph**: Introduction, Argument, Quote, Conclusion
-- **Drag-and-Drop Reordering**: Easily reorganize your document structure
-- **Type-Specific Formatting**: Automatic formatting based on paragraph type
-- **Template System**: Start with pre-configured academic structures
+### 📝 **Escrita Estruturada**
+- **Caixas de Diálogo Guiadas para um Parágrafo melhor**: Introdução, Argumento, Citação, Conclusão
+- **Reordenação por Arrastar e Soltar**: Reorganize facilmente a estrutura do seu documento
+- **Formatação Específica por Tipo**: Formatação automática baseada no tipo de parágrafo
+- **Sistema de Modelos**: Comece com estruturas acadêmicas pré-configuradas
 
-### 🎨 **Modern Interface**
-- **GTK4 + libadwaita**: Native Linux desktop integration
-- **Adaptive Design**: Responsive layout that works on various screen sizes
-- **Dark Mode Support**: Automatic theme switching with system preferences
-- **Accessibility**: Full keyboard navigation and screen reader support
+### 🎨 **Interface Moderna**
+- **GTK4 + libadwaita**: Integração nativa com desktop Linux
+- **Design Adaptativo**: Layout responsivo que funciona em vários tamanhos de tela
+- **Suporte a Modo Escuro**: Troca automática de tema com as preferências do sistema
+- **Acessibilidade**: Navegação completa por teclado e suporte a leitor de tela
 
-### 📊 **Real-Time Analytics**
-- **Live Statistics**: Word count, paragraph count
-- **Progress Tracking**: Monitor your writing progress in real-time
-- **Reading Time**: Estimated reading time calculation
+### 📊 **Análises em Tempo Real**
+- **Estatísticas ao Vivo**: Contagem de palavras, contagem de parágrafos
+- **Acompanhamento de Progresso**: Monitore seu progresso de escrita em tempo real
+- **Tempo de Leitura**: Cálculo estimado do tempo de leitura
 
-### 💾 **Project Management**
-- **Auto-Save**: Never lose your work with automatic saving
-- **Project Library**: Organize and manage multiple writing projects
-- **Search & Filter**: Quickly find specific projects
-- **Backup System**: Automatic backup creation
+### 💾 **Gerenciamento de Projetos**
+- **Salvamento Automático**: Nunca perca seu trabalho com o salvamento automático
+- **Biblioteca de Projetos**: Organize e gerencie múltiplos projetos de escrita
+- **Pesquisar e Filtrar**: Encontre rapidamente projetos específicos
+- **Sistema de Backup**: Criação automática de backup
 
-### 📤 **Export Options**
-- **Multiple Formats**: TXT, ODT, PDF, MD, TEX
-- **Academic Standards**: Export formats suitable for academic submission
+### 📤 **Opções de Exportação**
+- **Múltiplos Formatos**: TXT, ODT, PDF
+- **Padrões Acadêmicos**: Formatos de exportação adequados para submissão acadêmica
 
-### ⚡ **Productivity Features**
-- **Pomodoro Timer**: Built-in focus timer for writing sessions
-- **Spell Checking**: Real-time spell checking support
-- **Keyboard Shortcuts**: Efficient workflow with customizable shortcuts
-- **Distraction-Free Mode**: Focus on writing with minimal UI
-- **AI Assistant**: Connect to Gemini or OpenRouter to rewrite, resume or suggest paragraphs directly from the editor (`Ctrl+Shift+I`)
+### ⚡ **Recursos de Produtividade**
+- **Temporizador Pomodoro**: Temporizador de foco integrado para sessões de escrita
+- **Verificação Ortográfica**: Suporte à verificação ortográfica em tempo real
+- **Atalhos de Teclado**: Fluxo de trabalho eficiente com atalhos personalizáveis
+- **Modo Livre de Distrações**: Foque na escrita com interface mínima
+- **Assistente de IA**: Conecte-se ao Gemini ou OpenRouter para reescrever, resumir ou sugerir parágrafos diretamente do editor (`Ctrl+Shift+I`)
 
-## System Requirements
+## Requisitos do Sistema
 
-### Minimum Requirements
-- **OS**: Any Linux Os
+### Requisitos Mínimos
+- **SO**: Qualquer SO Linux
 - **Python**: 3.12+
 - **GTK**: 3.0+
 - **libadwaita**: 1.0+
-- **Memory**: 2GB RAM
-- **CPU**: 2 cores / 2 threads
-- **Storage**: 400MB available space
+- **Memória**: 2GB RAM
+- **CPU**: 2 núcleos / 2 threads
+- **Armazenamento**: 400MB de espaço disponível
 
-### Recommended
-- **Memory**: 4GB+ RAM for large documents
-- **CPU**: 4 cores / 4 threads
-- **Storage**: 500MB+ for project storage and backups
+### Recomendado
+- **Memória**: 4GB+ RAM para documentos grandes
+- **CPU**: 4 núcleos / 4 threads
+- **Armazenamento**: 500MB+ para armazenamento de projetos e backups
 
-## Installation
-### 🔍 Choose your package:
+## Instalação
+### 🔍 Escolha seu pacote:
 
-- **Arch Linux users**: Prefer the [AUR](https://aur.archlinux.org/packages/tac-writer) package. Install with `yay -S tac-writer` or `paru -S tac-writer`.
-- **Debian/Ubuntu and derivative users**: Download the `.deb` file and install it with `sudo dpkg -i package-name.deb` or double-click it in your distribution's package manager (Tac Writer will be added to your menu/launcher, you can open it from there).
-- **Fedora and derivative user**: Download the `.rpm`, open the terminal in the folder and install with `sudo dnf install package-name.rpm` (Tac Writer will be added to your menu/launcher, you can open it from there)
+- **Usuários do Arch Linux**: Prefira o pacote do [AUR](https://aur.archlinux.org/packages/tac-writer). Instale com `yay -S tac-writer` ou `paru -S tac-writer`.
+- **Usuários do Debian/Ubuntu e derivados**: Baixe o arquivo `.deb` e instale com `sudo dpkg -i nome-do-pacote.deb` ou clique duas vezes nele no gerenciador de pacotes da sua distribuição (O Tac Writer será adicionado ao seu menu/lançador, você pode abri-lo de lá).
+- **Usuários do Fedora e derivados**: Baixe o `.rpm`, abra o terminal na pasta e instale com `sudo dnf install nome-do-pacote.rpm` (O Tac Writer será adicionado ao seu menu/lançador, você pode abri-lo de lá)
 
-### AI Assistant
+### Assistente de IA
 
-1. Open **Preferences ▸ AI Assistant**, enable the feature and choose your provider (Gemini ou OpenRouter).
+1. Abra **Preferências ▸ Assistente de IA**, habilite o recurso e escolha seu provedor (Gemini ou OpenRouter).
 2. Informe o **Model ID** e a **API key** correspondente (OpenRouter também aceita Referer e Título opcionais para ranking).
 3. No editor, posicione o cursor ou selecione o trecho desejado e pressione `Ctrl+Shift+I` (ou clique no avatar da barra superior).
 4. Descreva como quer melhorar o parágrafo, escolha uma sugestão rápida se quiser e envie.  
 5. Analise o retorno: copie, insira diretamente no texto ou aproveite as sugestões adicionais.
 
-### Writing with TAC Methodology
+### Escrevendo com a Metodologia TAC
 
-The **Continuous Argumentation Technique** follows this structure:
+A **Técnica de Argumentação Contínua** segue esta estrutura:
 
-- **Introduction**: Summarizes the topic to be addressed
-- **Argumentation**: Develops the main points and evidence
-- **Quote**: Supports arguments with relevant citations
-- **Argumentative Resumption**: Links back to previous arguments
-- **Conclusion**: Synthesizes and closes the presented ideas
+- **Introdução**: Resume o tópico a ser abordado
+- **Argumentação**: Desenvolve os pontos principais e evidências
+- **Citação**: Apoia argumentos com citações relevantes
+- **Retomada Argumentativa**: Vincula-se aos argumentos anteriores
+- **Conclusão**: Sintetiza e encerra as ideias apresentadas
 
-### Keyboard Shortcuts
+### Atalhos de Teclado
 
-| Shortcut | Action | Description |
+| Atalho | Ação | Descrição |
 |----------|--------|-------------|
-| `Ctrl+N` | New Project | Create a new writing project |
-| `Ctrl+O` | Open Project | Open an existing project |
-| `Ctrl+S` | Save Project | Save current project |
-| `Ctrl+E` | Export Project | Export to various formats |
-| `Ctrl+,` | Preferences | Open application settings |
-| `Ctrl+Z` | Undo | Undo last action |
-| `Ctrl+Shift+Z` | Redo | Redo last undone action |
-| `Ctrl+Alt+I` | Insert Image | Open the insert image dialog |
-| `Ctrl+Shift+I` | Ask AI Assistant | Open the AI prompt dialog |
-| `Ctrl+Q` | Quit | Exit application |
-| `F11` | Focus Mode | Toggle distraction-free writing |
+| `Ctrl+N` | Novo Projeto | Criar um novo projeto de escrita |
+| `Ctrl+O` | Abrir Projeto | Abrir um projeto existente |
+| `Ctrl+S` | Salvar Projeto | Salvar o projeto atual |
+| `Ctrl+E` | Exportar Projeto | Exportar para vários formatos |
+| `Ctrl+,` | Preferências | Abrir configurações do aplicativo |
+| `Ctrl+Z` | Desfazer | Desfazer a última ação |
+| `Ctrl+Shift+Z` | Refazer | Refazer a última ação desfeita |
+| `Ctrl+Alt+I` | Inserir Imagem | Abrir o diálogo de inserção de imagem |
+| `Ctrl+Shift+I` | Perguntar ao Assistente de IA | Abrir o diálogo de prompt de IA |
+| `Ctrl+Q` | Sair | Sair do aplicativo |
+| `F11` | Modo Foco | Alternar escrita livre de distrações |
 
-## Configuration
+## Configuração
 
-TAC Writer follows XDG Base Directory specification:
+O TAC Writer segue a especificação XDG Base Directory:
 
-- **Configuration**: `~/.config/tac/`
-- **User Data**: `~/.local/share/tac/`
+- **Configuração**: `~/.config/tac/`
+- **Dados do Usuário**: `~/.local/share/tac/`
 - **Cache**: `~/.cache/tac/`
-- **Projects**: `~/.local/share/tac/projects/`
-
-### Customization Options
-
-- **Themes**: Light, dark, or system preference
-- **Fonts**: Choose from installed system fonts
-- **Templates**: Create custom document templates
-- **Export Settings**: Configure default export formats
-- **Shortcuts**: Customize keyboard shortcuts
+- **Projetos**: `~/.local/share/tac/projects/`
 
 
+## Como Contribuir
+### Áreas para Contribuição
 
-## How to Contribute
-### Areas for Contribution
+- **Correção de Bugs**: Ajude a melhorar a estabilidade e a experiência do usuário
+- **Desenvolvimento de Recursos**: Implemente itens do nosso roteiro (roadmap)
+- **Documentação**: Melhore guias de usuário e documentos de desenvolvedor
+- **Traduções**: Adicione suporte para idiomas adicionais
+- **Testes**: Expanda a cobertura de testes e adicione testes de integração
 
-- **Bug Fixes**: Help improve stability and user experience
-- **Feature Development**: Implement items from our roadmap
-- **Documentation**: Improve user guides and developer docs
-- **Translations**: Add support for additional languages
-- **Testing**: Expand test coverage and add integration tests
+### Obtendo Ajuda
 
-### Getting Help
+- **Documentação**: [Wiki do GitHub](https://github.com/narayanls/tac-writer/wiki)
+- **Problemas (Issues)**: [Issues do GitHub](https://github.com/narayanls/tac-writer/issues)
 
-- **Documentation**: [GitHub Wiki](https://github.com/narayanls/tac-writer/wiki)
-- **Issues**: [GitHub Issues](https://github.com/narayanls/tac-writer/issues)
+### Relatando Bugs
 
-### Reporting Bugs
+Ao relatar bugs, por favor inclua:
 
-When reporting bugs, please include:
+- **Informações do Sistema**: Versão do SO, ambiente de desktop, versão do GTK
+- **Passos para Reprodução**: Passos claros para reproduzir o problema
+- **Comportamento Esperado vs Real**: O que deveria acontecer vs o que realmente acontece
+- **Capturas de tela/Logs**: Auxílios visuais ou arquivos de log relevantes
+- **Arquivos de Projeto**: Projetos de exemplo que demonstram o problema (se aplicável)
 
-- **System Information**: OS version, desktop environment, GTK version
-- **Reproduction Steps**: Clear steps to reproduce the issue
-- **Expected vs Actual Behavior**: What should happen vs what actually happens
-- **Screenshots/Logs**: Visual aids or relevant log files
-- **Project Files**: Sample projects that demonstrate the issue (if applicable)
+## Licença
 
-## License
-
-This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](LICENSE) file for details.
+Este projeto está licenciado sob a **GNU General Public License v3.0**. Veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
 <p align="center">
-  <strong>Made with ❤️ by Narayan Silva</strong><br>
+  <strong>Feito com ❤️ por Narayan Silva</strong><br>
   </p>

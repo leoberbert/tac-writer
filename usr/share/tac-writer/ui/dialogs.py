@@ -2299,3 +2299,181 @@ class AiResultDialog(Adw.Window):
         buff.set_text(result_text)
         
         scrolled.set_child(text_view)
+
+
+class CloudSyncDialog(Adw.Window):
+    """Dialog for Dropbox Cloud Synchronization"""
+
+    __gtype_name__ = 'TacCloudSyncDialog'
+
+    def __init__(self, parent, **kwargs):
+        super().__init__(**kwargs)
+        self.set_title(_("Sincronização na Nuvem (Dropbox)"))
+        self.set_transient_for(parent)
+        self.set_modal(True)
+        self.set_default_size(500, 450)
+        self.set_resizable(False)
+
+        self._create_ui()
+
+    def _create_ui(self):
+        """Create the dialog UI"""
+        content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.set_content(content_box)
+
+        # Header bar
+        header_bar = Adw.HeaderBar()
+        content_box.append(header_bar)
+
+        # Main content area
+        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24)
+        main_box.set_margin_top(20)
+        main_box.set_margin_bottom(20)
+        main_box.set_margin_start(20)
+        main_box.set_margin_end(20)
+        content_box.append(main_box)
+
+        # Section 1: Authentication / Login
+        auth_group = Adw.PreferencesGroup()
+        auth_group.set_title(_("Configuração de Acesso"))
+        auth_group.set_description(_("Para conectar, siga os passos abaixo:"))
+        main_box.append(auth_group)
+
+        # Step 1: Open Browser
+        step1_row = Adw.ActionRow()
+        step1_row.set_title(_("1. Autorizar no Dropbox"))
+        step1_row.set_subtitle(_("Clique para abrir o navegador e fazer login."))
+        
+        login_button = Gtk.Button()
+        login_button.set_label(_("Abrir Navegador"))
+        login_button.add_css_class("suggested-action")
+        login_button.set_valign(Gtk.Align.CENTER)
+        login_button.connect("clicked", self._on_open_browser_clicked)
+        
+        step1_row.add_suffix(login_button)
+        auth_group.add(step1_row)
+
+        # Step 2: Enter Code
+        step2_row = Adw.ActionRow()
+        step2_row.set_title(_("2. Inserir Código"))
+        step2_row.set_subtitle(_("Cole o código gerado pelo Dropbox."))
+        auth_group.add(step2_row)
+
+        # Entry container
+        entry_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        entry_box.set_margin_top(8)
+        entry_box.set_margin_bottom(8)
+        
+        self.auth_code_entry = Gtk.Entry()
+        self.auth_code_entry.set_placeholder_text(_("Ex: sl.Bz..."))
+        self.auth_code_entry.set_hexpand(True)
+        entry_box.append(self.auth_code_entry)
+
+        self.connect_btn = Gtk.Button(label=_("Conectar"))
+        self.connect_btn.add_css_class("suggested-action")
+        self.connect_btn.connect("clicked", self._on_connect_clicked)
+        entry_box.append(self.connect_btn)
+
+        # Add enter box
+        auth_card = Gtk.Frame()
+        auth_card.add_css_class("card")
+        auth_inner = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+        auth_inner.set_margin_start(12)
+        auth_inner.set_margin_end(12)
+        auth_inner.set_margin_top(12)
+        auth_inner.set_margin_bottom(12)
+        
+        auth_inner.append(Gtk.Label(label=_("Cole o código de autorização aqui:"), xalign=0))
+        auth_inner.append(entry_box)
+        auth_card.set_child(auth_inner)
+        
+        main_box.append(auth_card)
+
+        # Separator
+        main_box.append(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+
+        # Section 2: Sync Actions
+        sync_group = Adw.PreferencesGroup()
+        sync_group.set_title(_("Sincronização"))
+        main_box.append(sync_group)
+
+        self.sync_row = Adw.ActionRow()
+        self.sync_row.set_title(_("Estado: Não conectado"))
+        self.sync_row.set_subtitle(_("Última sincronização: Nunca"))
+        
+        # Status icon
+        self.status_icon = Gtk.Image.new_from_icon_name("tac-dialog-warning-symbolic")
+        self.sync_row.add_prefix(self.status_icon)
+        
+        sync_group.add(self.sync_row)
+
+        # Big Sync Button
+        self.sync_button = Gtk.Button(label=_("Sincronizar Agora"))
+        self.sync_button.set_icon_name("tac-emblem-synchronizing-symbolic") 
+        self.sync_button.add_css_class("pill")
+        self.sync_button.set_size_request(-1, 50)
+        self.sync_button.set_margin_top(10)
+        self.sync_button.set_sensitive(False)
+        self.sync_button.connect("clicked", self._on_sync_now_clicked)
+        
+        main_box.append(self.sync_button)
+
+    def _on_open_browser_clicked(self, btn):
+        """Simulate opening Dropbox auth URL"""
+        # TODO: Integrar lógica real do Dropbox SDK para obter a URL correta
+        dummy_url = "https://www.dropbox.com/oauth2/authorize?client_id=SEU_CLIENT_ID&response_type=code"
+        
+        try:
+            launcher = Gtk.UriLauncher.new(uri=dummy_url)
+            launcher.launch(self, None, None)
+        except:
+            Gio.AppInfo.launch_default_for_uri(dummy_url, None)
+            
+        # Feedback visual
+        toast = Adw.Toast.new(_("Navegador aberto. Faça login e copie o código."))
+        self.add_toast(toast)
+
+    def _on_connect_clicked(self, btn):
+        """Validate the code pasted by user"""
+        code = self.auth_code_entry.get_text().strip()
+        if not code:
+            return
+
+        btn.set_label(_("Verificando..."))
+        btn.set_sensitive(False)
+
+        # Assync verification simulation
+        GLib.timeout_add(1500, self._simulate_successful_connection, btn)
+
+    def _simulate_successful_connection(self, btn):
+        """Mock success state"""
+        btn.set_label(_("Conectado"))
+        btn.add_css_class("success")
+        self.auth_code_entry.set_sensitive(False)
+        
+        # Enable Sync
+        self.sync_button.set_sensitive(True)
+        self.sync_button.add_css_class("suggested-action")
+        
+        # Update Row Status
+        self.sync_row.set_title(_("Estado: Conectado ao Dropbox"))
+        self.status_icon.set_from_icon_name("tac-emblem-ok-symbolic")
+        self.status_icon.add_css_class("success")
+        
+        return False
+
+    def _on_sync_now_clicked(self, btn):
+        """Trigger sync logic"""
+        btn.set_sensitive(False)
+        btn.set_label(_("Sincronizando..."))
+        
+        # Simulação
+        def finish_sync():
+            btn.set_sensitive(True)
+            btn.set_label(_("Sincronizar Agora"))
+            timestamp = datetime.now().strftime("%H:%M")
+            self.sync_row.set_subtitle(_("Última sincronização: Hoje às {}").format(timestamp))
+            self.add_toast(Adw.Toast.new(_("Sincronização concluída com sucesso!")))
+            return False
+
+        GLib.timeout_add(2000, finish_sync)

@@ -2339,11 +2339,11 @@ class CloudSyncDialog(Adw.Window):
 
     def _create_ui(self):
         """Create the dialog UI"""
-        # 1. Criamos o Overlay para notificações
+        # 1. Overlay for notifications
         self.toast_overlay = Adw.ToastOverlay()
         self.set_content(self.toast_overlay) 
 
-        # 2. O Box principal fica dentro do Overlay
+        # 2. Box inside overlay
         content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.toast_overlay.set_child(content_box)
 
@@ -2505,7 +2505,7 @@ class CloudSyncDialog(Adw.Window):
             self._show_toast(_("Biblioteca 'dropbox' não instalada."))
             return
 
-        # Verifica se a chave foi definida no topo do arquivo
+        # Verify if key was definied
         try:
             if not DROPBOX_APP_KEY or DROPBOX_APP_KEY == "YOUR_APP_KEY_HERE":
                 self._show_toast(_("Erro: App Key não configurada."))
@@ -2515,7 +2515,7 @@ class CloudSyncDialog(Adw.Window):
              return
 
         try:
-            # PKCE Flow: Mais seguro para apps desktop (sem client secret)
+            
             self.auth_flow = DropboxOAuth2FlowNoRedirect(
                 DROPBOX_APP_KEY,
                 use_pkce=True,
@@ -2524,7 +2524,7 @@ class CloudSyncDialog(Adw.Window):
 
             authorize_url = self.auth_flow.start()
             
-            # Tenta abrir o navegador
+            # Try open browser
             try:
                 launcher = Gtk.UriLauncher.new(uri=authorize_url)
                 launcher.launch(self, None, None)
@@ -2553,7 +2553,7 @@ class CloudSyncDialog(Adw.Window):
         btn.set_sensitive(False)
         btn.set_label(_("Verificando..."))
 
-        # Executa em thread para não travar a UI
+        # Execute in thread for prevent UI freeze
         threading.Thread(target=self._finish_auth_flow, args=(code, btn), daemon=True).start()
 
     def _finish_auth_flow(self, code, btn):
@@ -2561,7 +2561,7 @@ class CloudSyncDialog(Adw.Window):
         try:
             oauth_result = self.auth_flow.finish(code)
             
-            # refresh_token é o que precisamos salvar para acesso futuro
+            
             refresh_token = oauth_result.refresh_token
             
             GLib.idle_add(self._on_auth_success, btn, refresh_token)
@@ -2574,7 +2574,7 @@ class CloudSyncDialog(Adw.Window):
         """Chamado na thread principal em caso de sucesso"""
         btn.set_label(_("Conectar"))
         
-        # Salva na configuração do usuário
+        # Save in user config
         self.config.set('dropbox_refresh_token', refresh_token)
         self.config.save()
         
@@ -2582,7 +2582,7 @@ class CloudSyncDialog(Adw.Window):
         self._update_ui_state(connected=True)
         self._show_toast(_("Conectado com sucesso!"))
         
-        self.auth_flow = None # Limpa o fluxo
+        self.auth_flow = None
 
     def _on_auth_failure(self, btn, error_message):
         """Chamado na thread principal em caso de erro"""
@@ -2613,7 +2613,7 @@ class CloudSyncDialog(Adw.Window):
         btn.set_label(_("Sincronizando..."))
         self.sync_row.set_subtitle(_("Sincronização em andamento..."))
         
-        # Inicia thread de sincronização
+        # Initiate sync thread
         threading.Thread(target=self._perform_sync, args=(refresh_token, btn), daemon=True).start()
 
 
@@ -2635,22 +2635,22 @@ class CloudSyncDialog(Adw.Window):
             sync_msg = ""
             stats = None
 
-            # 1. Tentar baixar o arquivo remoto
+            # 1. Try to download remote file
             remote_exists = False
             try:
-                # Baixa para arquivo temporário
+                # Download to temp. file
                 dbx.files_download_to_file(str(temp_db_path), remote_path)
                 remote_exists = True
                 print("Download do Dropbox concluído.")
             except ApiError as e:
-                # Se erro for "arquivo não encontrado", seguimos para upload inicial
+                # If "file not found", proceed to initial upload
                 if e.error.is_path() and e.error.get_path().is_not_found():
                     print("Arquivo não encontrado no Dropbox. Iniciando primeiro upload.")
                     remote_exists = False
                 else:
                     raise e
 
-            # 2. Executar Merge (se baixou algo)
+            # 2. Execute Merge (if something was downloaded)
             if remote_exists:
                 # Use ProjectManager to access merge logic
                 stats = self.parent_window.project_manager.merge_database(str(temp_db_path))
@@ -2677,12 +2677,12 @@ class CloudSyncDialog(Adw.Window):
                 )
             print("Upload para o Dropbox concluído.")
 
-            # Finaliza com sucesso
+            # Finalize with sucess
             GLib.idle_add(self._on_sync_finished, btn, True, sync_msg)
             
         except Exception as e:
             print(f"Erro de Sync: {e}")
-            # Tenta limpar temp se der erro
+            
             try:
                 temp_path = self.config.database_path.with_suffix('.temp_sync.db')
                 if temp_path.exists():
@@ -2702,7 +2702,7 @@ class CloudSyncDialog(Adw.Window):
             self.sync_row.set_subtitle(_("Última sincronização: {}").format(timestamp))
             self._show_toast(message)
             
-            # Recarrega a lista de projetos na janela principal
+            # Reload project list in main window
             if hasattr(self.parent_window, 'project_list'):
                 self.parent_window.project_list.refresh_projects()
                 

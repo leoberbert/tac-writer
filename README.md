@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>Assistente de Escrita Acadêmica para a Técnica de Argumentação Contínua</strong>
+  <strong>Assistente de Escrita Acadêmica para a Técnica da Argumentação Contínua</strong>
 </p>
 
 <p align="center">
@@ -26,9 +26,9 @@
 ---
 ## Visão Geral
 
-O **TAC Writer** é um assistente de escrita acadêmica moderno projetado para ajudar estudantes e pesquisadores a criar textos acadêmicos estruturados usando a **Técnica de Argumentação Contínua (TAC)**. Construído com GTK4 e libadwaita, o TAC oferece uma interface intuitiva para organizar pensamentos, gerenciar a estrutura do documento e produzir conteúdo acadêmico de alta qualidade.
+O **TAC Writer** é um assistente de escrita acadêmica moderno projetado para ajudar estudantes e pesquisadores a criar textos acadêmicos estruturados usando a **Técnica da Argumentação Contínua (TAC)**. Construído com GTK4 e libadwaita, o TAC oferece uma interface intuitiva para organizar pensamentos, gerenciar a estrutura do documento e produzir conteúdo acadêmico de alta qualidade.
 
-A Técnica de Argumentação Contínua enfatiza parágrafos interconectados que se baseiam uns nos outros, tornando tópicos complexos mais fáceis de entender e argumentos mais convincentes.
+A Técnica da Argumentação Contínua enfatiza parágrafos interconectados que se baseiam uns nos outros, tornando tópicos complexos mais fáceis de entender e argumentos mais convincentes.
 
 ## Capturas de Tela
 
